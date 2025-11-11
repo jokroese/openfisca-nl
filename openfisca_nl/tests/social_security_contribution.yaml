@@ -1,44 +1,45 @@
 # Test files describe situations and their expected outcomes
-# We can run this test on our command line using `openfisca-run-test social_security_contribution.yaml`
+# Tests can be run with `openfisca-run-test social_security_contribution.yaml`
 
-- name: Person earning 2000 in 2013-01
-  period: 2013-01
-  input:
-    salary: 2000
-  output:
-    social_security_contribution: 60
+# The social_security_contribution is calculated with a marginal scale
+# Note: This is a simplified combined rate for modeling purposes
 
-- name: Person earning 15000 in 2013-01
-  period: 2013-01
+- name: Social security 2025 - low income below threshold
+  period: 2025-01
+  absolute_error_margin: 0.5
   input:
-    salary: 15000
+    salary: 3000
   output:
-    social_security_contribution: 660
+    # Below threshold (40585), so full rate of 28.00%
+    # 3000 * 0.2800 = 840.00
+    social_security_contribution: 840.00
 
-- name: Person earning 2000 in 2015-01
-  period: 2015-01
+- name: Social security 2025 - income above threshold
+  period: 2025-01
+  absolute_error_margin: 1.0
   input:
-    salary: 2000
+    salary: 5000
   output:
-    social_security_contribution: 80
+    # First 40585/12 = 3382.08 at 28.00%, rest at 5%
+    # 3382.08 * 0.2800 + (5000-3382.08) * 0.05 = 946.98 + 80.90 = 1027.88
+    social_security_contribution: 1027.88
 
-- name: Person earning 15000 in 2015-01
-  period: 2015-01
+- name: Social security 2024 - for comparison
+  period: 2024-01
+  absolute_error_margin: 0.5
   input:
-    salary: 15000
+    salary: 3000
   output:
-    social_security_contribution: 824
+    # 2024 rate: 27.90%
+    # 3000 * 0.2790 = 837.00
+    social_security_contribution: 837.00
 
-- name: Person earning 2000 in 2017-01
-  period: 2017-01
+- name: Social security 2023 - for comparison
+  period: 2023-01
+  absolute_error_margin: 0.5
   input:
-    salary: 2000
+    salary: 3000
   output:
-    social_security_contribution: 40
-
-- name: Person earning 15000 in 2017-01
-  period: 2017-01
-  input:
-    salary: 15000
-  output:
-    social_security_contribution: 816
+    # 2023 rate: 27.55%
+    # 3000 * 0.2755 = 826.50
+    social_security_contribution: 826.50

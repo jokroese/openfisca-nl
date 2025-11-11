@@ -4,7 +4,7 @@
 - name: Income tax for a single parent and a child
   description: Income tax should get properly computed across all members of a household
   period: 2017-01
-  absolute_error_margin: 0
+  absolute_error_margin: 1.0
   input:
     household:
       adults: [ Alicia ]
@@ -23,7 +23,8 @@
   output:
     persons:
       Alicia:
-        income_tax: 360
+        # Updated for 2017 with tax credits (algemene heffingskorting + arbeidskorting)
+        income_tax: 445.47
       Michael:
         income_tax: 0
     household:

@@ -1,0 +1,121 @@
+# Test files describe situations and their expected outcomes for self-employment
+# Tests demonstrate the hours criterion (urencriterium) and profit deductions
+
+- name: 2025 - Hours criterion met, normal profit
+  absolute_error_margin: 0.1
+  period: 2025-01
+  input:
+    winst_voor_aftrek: 3000
+    urencriterium_voldaan:
+      2025: true
+  output:
+    # Zelfstandigenaftrek 2025: 2200/12 = 183.33
+    zelfstandigenaftrek: 183.33
+    # MKB vrijstelling: (3000-183.33)*0.1331 = 374.90
+    mkb_winstvrijstelling: 374.90
+    # Taxable: 3000 - 183.33 - 374.90 = 2441.77
+    self_employment_taxable_income: 2441.77
+
+- name: 2025 - Hours criterion NOT met, no zelfstandigenaftrek
+  absolute_error_margin: 0.1
+  period: 2025-01
+  input:
+    winst_voor_aftrek: 3000
+    urencriterium_voldaan:
+      2025: false
+  output:
+    # No zelfstandigenaftrek because hours criterion not met
+    zelfstandigenaftrek: 0
+    # MKB vrijstelling: 3000*0.1331 = 399.30
+    mkb_winstvrijstelling: 399.30
+    # Taxable: 3000 - 0 - 399.30 = 2600.70
+    self_employment_taxable_income: 2600.70
+
+- name: 2025 - Very low profit, hours criterion met
+  absolute_error_margin: 0.1
+  period: 2025-01
+  input:
+    winst_voor_aftrek: 100
+    urencriterium_voldaan:
+      2025: true
+  output:
+    # Zelfstandigenaftrek 2025: 2200/12 = 183.33
+    zelfstandigenaftrek: 183.33
+    # MKB vrijstelling on negative base: max(100-183.33, 0) = 0, so 0*0.1331 = 0
+    mkb_winstvrijstelling: 0
+    # Taxable: max(100 - 183.33 - 0, 0) = 0 (clamped)
+    self_employment_taxable_income: 0
+
+- name: 2024 - Hours criterion met, higher deduction
+  absolute_error_margin: 0.15
+  period: 2024-01
+  input:
+    winst_voor_aftrek: 4000
+    urencriterium_voldaan:
+      2024: true
+  output:
+    # Zelfstandigenaftrek 2024: 3750/12 = 312.50
+    zelfstandigenaftrek: 312.50
+    # MKB vrijstelling 2024: (4000-312.50)*0.1270 = 468.31
+    mkb_winstvrijstelling: 468.31
+    # Taxable: 4000 - 312.50 - 468.31 = 3219.19
+    self_employment_taxable_income: 3219.19
+
+- name: 2024 - Hours criterion NOT met
+  absolute_error_margin: 0.1
+  period: 2024-01
+  input:
+    winst_voor_aftrek: 4000
+    urencriterium_voldaan:
+      2024: false
+  output:
+    # No zelfstandigenaftrek
+    zelfstandigenaftrek: 0
+    # MKB vrijstelling: 4000*0.1270 = 508
+    mkb_winstvrijstelling: 508
+    # Taxable: 4000 - 0 - 508 = 3492
+    self_employment_taxable_income: 3492
+
+- name: 2025 - Negative profit (loss)
+  absolute_error_margin: 0.1
+  period: 2025-01
+  input:
+    winst_voor_aftrek: -500
+    urencriterium_voldaan:
+      2025: true
+  output:
+    # Still get zelfstandigenaftrek
+    zelfstandigenaftrek: 183.33
+    # No MKB vrijstelling on negative base: max(-500-183.33, 0) = 0
+    mkb_winstvrijstelling: 0
+    # Taxable: max(-500 - 183.33 - 0, 0) = 0
+    self_employment_taxable_income: 0
+
+- name: 2025 - High profit with hours criterion met
+  absolute_error_margin: 0.1
+  period: 2025-01
+  input:
+    winst_voor_aftrek: 10000
+    urencriterium_voldaan:
+      2025: true
+  output:
+    zelfstandigenaftrek: 183.33
+    # MKB vrijstelling: (10000-183.33)*0.1331 = 1306.60
+    mkb_winstvrijstelling: 1306.60
+    # Taxable: 10000 - 183.33 - 1306.60 = 8510.07
+    self_employment_taxable_income: 8510.07
+
+- name: 2025 - Modest profit just above deduction threshold
+  absolute_error_margin: 0.1
+  period: 2025-01
+  input:
+    winst_voor_aftrek: 500
+    urencriterium_voldaan:
+      2025: true
+  output:
+    zelfstandigenaftrek: 183.33
+    # MKB vrijstelling: (500-183.33)*0.1331 = 42.14
+    mkb_winstvrijstelling: 42.14
+    # Taxable: 500 - 183.33 - 42.14 = 274.53
+    self_employment_taxable_income: 274.53
+

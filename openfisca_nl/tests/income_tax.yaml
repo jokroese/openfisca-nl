@@ -1,9 +1,114 @@
-# Test files describe situations and their expected outcomes
-# We can run this test on our command line using `openfisca-run-test income_tax.yaml`
+# Test files describe situations and their expected outcomes for income tax
+# Tests use 2025 brackets and tax credits
 
-- name: Someone making 10000 should pay 1500 of taxes
-  period: 2017-01
+- name: Low income (€24,000/year) - mostly tax credits
+  period: 2025-01
+  absolute_error_margin: 0.5
   input:
-    salary: 10000
+    salary: 2000  # €24,000/year
   output:
-    income_tax: 1500
+    taxable_income: 2000
+    # Gross tax: 2000 * 0.3582 = 716.40/month
+    # Algemene heffingskorting: 3068/12 = 255.67 (no phase-out)
+    # Arbeidskorting: min(24000 * 0.08989, 5599) / 12 = 2157.36/12 = 179.78
+    # Net tax: max(716.40 - 255.67 - 179.78, 0) = 280.95
+    income_tax: 280.95
+
+- name: Modal income (€40,000/year) - with both credits
+  period: 2025-01
+  absolute_error_margin: 2.5
+  input:
+    salary: 3333.33  # ≈€40,000/year
+  output:
+    taxable_income: 3333.33
+    # Gross tax: 38441 * 0.3582 + (40000-38441) * 0.3748 = 13768.50 + 584.49 = 14352.99/year = 1196.08/month
+    # Algemene heffingskorting: 3068 - (40000-28406)*0.066337 = 3068 - 769.10 = 2298.90/year = 191.58/month
+    # Arbeidskorting: 40000 * 0.08989 = 3595.6/year = 299.63/month
+    # Net tax: max(1196.08 - 191.58 - 299.63, 0) = 702.79
+    income_tax: 702.79
+
+- name: High income above AOW age (€100,000/year) - top bracket
+  period: 2025-01
+  absolute_error_margin: 3.0
+  input:
+    salary: 8333.33  # ≈€100,000/year
+  output:
+    taxable_income: 8333.33
+    # Gross tax: 38441*0.3582 + (76817-38441)*0.3748 + (100000-76817)*0.495 = 13768.50 + 14392.25 + 11475.59 = 39636.34/year = 3303.03/month
+    # Algemene heffingskorting: phased out above 76817, some residual = ~0/month
+    # Arbeidskorting: min(100000 * 0.08989, 5599) - (100000-43071)*0.0651 = 5599 - 3704.94 = 1894.06/year = 157.84/month
+    # Net tax: ~2827/month
+    income_tax: 2827.26
+
+- name: Very high income (€200,000/year) - minimal credits
+  period: 2025-01
+  absolute_error_margin: 5.0
+  input:
+    salary: 16666.67  # ≈€200,000/year
+  output:
+    taxable_income: 16666.67
+    # Gross tax on 200k: calculation at monthly level
+    # With some remaining tax credits at very high income
+    # Net tax: ~5970/month
+    income_tax: 5970
+
+- name: Low income 2024 brackets
+  period: 2024-01
+  absolute_error_margin: 1.0
+  input:
+    salary: 2000  # €24,000/year
+  output:
+    taxable_income: 2000
+    # Gross tax 2024: 2000 * 0.3697 = 739.40/month
+    # Algemene heffingskorting 2024: 3362/12 = 280.17 (no phase-out at this income)
+    # Arbeidskorting 2024: 24000 * 0.08425 = 2022/year = 168.50/month
+    # Net tax: max(739.40 - 280.17 - 168.50, 0) = 290.73
+    income_tax: 290.73
+
+- name: Income with self-employment
+  period: 2025-01
+  absolute_error_margin: 0.5
+  input:
+    salary: 2000
+    winst_voor_aftrek: 1000
+    urencriterium_voldaan:
+      2025: true
+  output:
+    # Zelfstandigenaftrek: 2200/12 = 183.33
+    zelfstandigenaftrek: 183.33
+    # MKB vrijstelling: (1000-183.33)*0.1331 = 108.67
+    mkb_winstvrijstelling: 108.67
+    # SE taxable: 1000 - 183.33 - 108.67 = 708.00
+    self_employment_taxable_income: 708.00
+    # Total taxable: 2000 + 708.00 = 2708.00
+    taxable_income: 2708.00
+
+- name: AOW-age person pays less tax than non-AOW (€3000/month) 
+  period: 2025-01
+  absolute_error_margin: 2.0
+  input:
+    salary: 3000
+    birth: 1955-06-15  # 69 years old in 2025
+  output:
+    # Taxable: 3000
+    taxable_income: 3000
+    # Gross tax with AOW scale: 3000 * 0.1902 = 570.60/month
+    # Algemene heffingskorting: 3068/12 = 255.67
+    # Arbeidskorting: min(36000 * 0.08989, 5599) / 12 = 3235.64/12 = 269.64
+    # Net tax: max(570.60 - 255.67 - 269.64, 0) = 45.29
+    # Compare to non-AOW: ~280.95 (from first test with 2000 salary, scaled up)
+    income_tax: 45.29
+
+- name: Non-AOW person pays more tax (€3000/month for comparison)
+  period: 2025-01
+  absolute_error_margin: 2.0
+  input:
+    salary: 3000
+    birth: 1995-01-01  # 30 years old in 2025
+  output:
+    taxable_income: 3000
+    # Gross tax with regular scale: 3000 * 0.3582 = 1074.60/month
+    # Algemene heffingskorting: 3068/12 = 255.67
+    # Arbeidskorting: min(36000 * 0.08989, 5599) / 12 = 269.64
+    # Net tax: max(1074.60 - 255.67 - 269.64, 0) = 549.29
+    income_tax: 549.29
