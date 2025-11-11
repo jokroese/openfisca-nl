@@ -1,9 +1,9 @@
-description: Age of majority (in years)
+description: Age of majority (meerderjarigheid) in the Netherlands
 metadata:
   unit: year
+  reference: https://www.rijksoverheid.nl/onderwerpen/burgerlijke-staat/vraag-en-antwoord/wanneer-ben-je-meerderjarig
 values:
-  # This parameter has last changed on the 1st of Jan 1971.
-  1945-01-01:
-    value: 21.0
   1971-01-01:
     value: 18.0
+    metadata:
+      notes: "Age of majority in the Netherlands is 18 years (since 1971)"

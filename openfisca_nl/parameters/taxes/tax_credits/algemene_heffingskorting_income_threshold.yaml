@@ -1,0 +1,13 @@
+description: Income threshold above which the general tax credit (algemene heffingskorting) starts to phase out
+metadata:
+  unit: currency-EUR
+  reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/heffingskortingen/content/algemene-heffingskorting
+  notes: "Above this annual income, the credit begins to phase out"
+values:
+  2023-01-01:
+    value: 22660
+  2024-01-01:
+    value: 24813
+  2025-01-01:
+    value: 28406
+

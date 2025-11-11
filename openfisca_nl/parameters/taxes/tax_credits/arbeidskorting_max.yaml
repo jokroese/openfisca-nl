@@ -1,0 +1,13 @@
+description: Maximum labor tax credit (arbeidskorting)
+metadata:
+  unit: currency-EUR
+  reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/heffingskortingen/content/arbeidskorting
+  notes: "Annual maximum for labor tax credit"
+values:
+  2023-01-01:
+    value: 4260
+  2024-01-01:
+    value: 5052
+  2025-01-01:
+    value: 5599
+

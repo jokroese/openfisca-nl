@@ -1,0 +1,13 @@
+description: Income level at which the labor tax credit (arbeidskorting) reaches its maximum
+metadata:
+  unit: currency-EUR
+  reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/heffingskortingen/content/arbeidskorting
+  notes: "Labor income level where arbeidskorting reaches its maximum amount"
+values:
+  2023-01-01:
+    value: 37697
+  2024-01-01:
+    value: 38098
+  2025-01-01:
+    value: 43071
+

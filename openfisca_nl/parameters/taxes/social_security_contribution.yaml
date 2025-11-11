@@ -1,40 +1,36 @@
-# The social_security_contribution is calculated with a marginal scale. Marginal scales are represented with a specific structure.
-description: Social security contribution tax scale
+# The social_security_contribution is calculated with a marginal scale
+description: Social security contributions (AOW, WLZ, WW, etc.) - simplified scale
 metadata:
   threshold_unit: currency-EUR
   rate_unit: /1
+  reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/werk-en-inkomen/content/premies-volksverzekeringen
+  notes: "Simplified combined rate for modeling purposes. Real Dutch system has AOW (17.9%), WLZ (9.65%), and other contributions with separate caps and rules. This model uses a single combined rate for simplification."
 brackets:
 - rate:
-    2013-01-01:
-      value: 0.03
-    2015-01-01:
-      value: 0.04
-    2017-01-01:
-      value: 0.02
+    2023-01-01:
+      value: 0.2755
+      metadata:
+        notes: "Simplified rate covering AOW, WLZ, and other contributions for 2023"
+    2024-01-01:
+      value: 0.2790
+    2025-01-01:
+      value: 0.2800
   threshold:
-    2013-01-01:
+    2023-01-01:
       value: 0.0
 - rate:
-    2013-01-01:
-      value: 0.1
-    2015-01-01:
-      value: 0.12
-    2017-01-01:
-      value: 0.06
+    2023-01-01:
+      value: 0.05
+      metadata:
+        notes: "Reduced rate above maximum contribution base"
+    2024-01-01:
+      value: 0.05
+    2025-01-01:
+      value: 0.05
   threshold:
-    2013-01-01:
-      value: 12000.0
-    2014-01-01:
-      value: 12100.0
-    2015-01-01:
-      value: 12200.0
-    2016-01-01:
-      value: 12300.0
-    2017-01-01:
-      value: 6000.0
-- rate:
-    2017-01-01:
-      value: 0.12
-  threshold:
-    2017-01-01:
-      value: 12400.0
+    2023-01-01:
+      value: 38098
+    2024-01-01:
+      value: 39296
+    2025-01-01:
+      value: 40585

@@ -1,0 +1,13 @@
+description: Rate at which the labor tax credit (arbeidskorting) phases out above the maximum income threshold
+metadata:
+  unit: /1
+  reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/heffingskortingen/content/arbeidskorting
+  notes: "Phase-out rate: for each euro above max income, credit reduces by this rate"
+values:
+  2023-01-01:
+    value: 0.06007
+  2024-01-01:
+    value: 0.06510
+  2025-01-01:
+    value: 0.06510
+

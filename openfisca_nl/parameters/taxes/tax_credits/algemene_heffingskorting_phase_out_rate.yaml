@@ -1,0 +1,13 @@
+description: Rate at which the general tax credit (algemene heffingskorting) phases out above the threshold
+metadata:
+  unit: /1
+  reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/heffingskortingen/content/algemene-heffingskorting
+  notes: "Phase-out rate: for each euro above threshold, credit reduces by this rate"
+values:
+  2023-01-01:
+    value: 0.06095
+  2024-01-01:
+    value: 0.06007
+  2025-01-01:
+    value: 0.066337
+

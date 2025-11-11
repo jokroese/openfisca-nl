@@ -1,0 +1,18 @@
+description: Rate for MKB profit exemption (mkb-winstvrijstelling)
+metadata:
+  unit: /1
+  reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/zelfstandigen/content/hulpmiddel-mkb-winstvrijstelling
+  notes: "Percentage of profit (after zelfstandigenaftrek) that is exempt from Box 1 tax"
+values:
+  2023-01-01:
+    value: 0.1240
+    metadata:
+      reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/zelfstandigen/content/mkb-winstvrijstelling-2023
+  2024-01-01:
+    value: 0.1270
+    metadata:
+      reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/zelfstandigen/content/mkb-winstvrijstelling-2024
+  2025-01-01:
+    value: 0.1331
+    metadata:
+      reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/zelfstandigen/content/mkb-winstvrijstelling-2025

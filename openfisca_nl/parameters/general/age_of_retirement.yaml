@@ -1,10 +1,21 @@
-# A parameter can contain utf-8 characters.
-description: Age of retirement (in years). In French âge de la retraite (en années).
+description: AOW-leeftijd (state pension age) in the Netherlands
 metadata:
-  reference: https://fr.wikipedia.org/wiki/Retraite_(économie)
+  reference: https://www.rijksoverheid.nl/onderwerpen/pensioen/aow-leeftijd
   unit: year
+  notes: "Dutch state pension (AOW) age. Varies by birth date; simplified here as single value per year"
 values:
-  2017-01-01:
-    value: 62.0
-  1951-07-01:
-    value: 60.33
+  2023-01-01:
+    value: 66.67
+    metadata:
+      reference: https://www.svb.nl/nl/aow/aow-leeftijd
+      notes: "AOW age in 2023: 66 years and 10 months for those born 1956-1957"
+  2024-01-01:
+    value: 67.0
+    metadata:
+      reference: https://www.svb.nl/nl/aow/aow-leeftijd
+      notes: "AOW age in 2024: 67 years"
+  2025-01-01:
+    value: 67.0
+    metadata:
+      reference: https://www.svb.nl/nl/aow/aow-leeftijd
+      notes: "AOW age in 2025: 67 years"

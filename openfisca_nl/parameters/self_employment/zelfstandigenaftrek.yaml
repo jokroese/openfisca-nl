@@ -1,0 +1,18 @@
+description: Yearly self-employed deduction (zelfstandigenaftrek)
+metadata:
+  unit: currency-EUR
+  reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/zelfstandigen/content/hulpmiddel-zelfstandigenaftrek
+  notes: "Annual deduction for self-employed persons meeting the hours criterion (urencriterium)"
+values:
+  2023-01-01:
+    value: 5030
+    metadata:
+      reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/zelfstandigen/content/zelfstandigenaftrek-2023
+  2024-01-01:
+    value: 3750
+    metadata:
+      reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/zelfstandigen/content/zelfstandigenaftrek-2024
+  2025-01-01:
+    value: 2200
+    metadata:
+      reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/zelfstandigen/content/zelfstandigenaftrek-2025

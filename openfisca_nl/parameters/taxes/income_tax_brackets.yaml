@@ -1,0 +1,46 @@
+description: Income tax brackets for Box 1 in the Netherlands
+metadata:
+  unit: currency-EUR
+  reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/inkomstenbelasting/content/tarieven-inkomstenbelasting
+  notes: "Tax rates and brackets for Box 1 income. 2025: Belastingplan 2025"
+brackets:
+  - threshold:
+      2023-01-01:
+        value: 0
+        metadata:
+          reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/inkomstenbelasting/content/tarieven-2023
+      2024-01-01:
+        value: 0
+        metadata:
+          reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/inkomstenbelasting/content/tarieven-2024
+      2025-01-01:
+        value: 0
+        metadata:
+          reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/inkomstenbelasting/content/tarieven-2025
+    rate:
+      2023-01-01:
+        value: 0.3693
+      2024-01-01:
+        value: 0.3697
+      2025-01-01:
+        value: 0.3582
+  - threshold:
+      2023-01-01:
+        value: 73031
+      2024-01-01:
+        value: 75518
+      2025-01-01:
+        value: 38441
+    rate:
+      2023-01-01:
+        value: 0.495
+      2024-01-01:
+        value: 0.495
+      2025-01-01:
+        value: 0.3748
+  - threshold:
+      2025-01-01:
+        value: 76817
+    rate:
+      2025-01-01:
+        value: 0.495

@@ -1,15 +1,23 @@
 #  One Yaml file can contain nested parameters
-description: Housing tax
+description: Property tax (Onroerendezaakbelasting - OZB)
+metadata:
+  reference: https://www.rijksoverheid.nl/onderwerpen/belastingen-voor-particulieren/onroerendezaakbelasting-ozb
+  notes: "OZB rates vary by municipality. These are simplified national averages for modeling purposes"
 rate:
-  description: Housing tax due per square meter.
+  description: Property tax rate per square meter (simplified for modeling)
   metadata:
     unit: currency-EUR/m2
+    notes: "Simplified rate; actual OZB is percentage of WOZ value set by municipalities"
   values:
-    2010-01-01: 10
+    2023-01-01: 12
+    2024-01-01: 13
+    2025-01-01: 14
 minimal_amount:
-  description: Minimal amount due for the housing tax
+  description: Minimal amount due for property tax
   metadata:
     unit: currency-EUR
   values:
-    2010-01-01: 200
-documentation: The housing tax, introduced in 2010, is proportional to the surface area of the habitation, with a minimal amount.
+    2023-01-01: 250
+    2024-01-01: 260
+    2025-01-01: 270
+documentation: OZB is a municipal property tax based on the WOZ value of real estate. Simplified here as rate per square meter for modeling purposes.

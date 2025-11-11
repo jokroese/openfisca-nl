@@ -1,0 +1,19 @@
+description: Maximum general tax credit (algemene heffingskorting)
+metadata:
+  unit: currency-EUR
+  reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/heffingskortingen/content/algemene-heffingskorting
+  notes: "Annual maximum for full general tax credit. Phases out above income threshold."
+values:
+  2023-01-01:
+    value: 3070
+    metadata:
+      reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/heffingskortingen/content/algemene-heffingskorting-2023
+  2024-01-01:
+    value: 3362
+    metadata:
+      reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/heffingskortingen/content/algemene-heffingskorting-2024
+  2025-01-01:
+    value: 3068
+    metadata:
+      reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/heffingskortingen/content/algemene-heffingskorting-2025
+

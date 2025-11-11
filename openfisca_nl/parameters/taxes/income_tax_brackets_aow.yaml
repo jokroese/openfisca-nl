@@ -1,0 +1,54 @@
+description: Income tax brackets for Box 1 in the Netherlands for persons at AOW age
+metadata:
+  unit: currency-EUR
+  reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/inkomstenbelasting/content/tarieven-inkomstenbelasting
+  notes: "Tax rates for AOW-age persons. First bracket rate is lower because no AOW premium is paid. 2025: Belastingplan 2025"
+brackets:
+  - threshold:
+      2023-01-01:
+        value: 0
+        metadata:
+          reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/inkomstenbelasting/content/tarieven-2023
+          notes: "AOW-age persons pay no AOW premium, reducing effective rate"
+      2024-01-01:
+        value: 0
+        metadata:
+          reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/inkomstenbelasting/content/tarieven-2024
+      2025-01-01:
+        value: 0
+        metadata:
+          reference: https://www.belastingdienst.nl/wps/wcm/connect/nl/inkomstenbelasting/content/tarieven-2025
+    rate:
+      2023-01-01:
+        value: 0.1918
+        metadata:
+          notes: "Standard 36.93% minus AOW premium ~17.75% = ~19.18%"
+      2024-01-01:
+        value: 0.1937
+        metadata:
+          notes: "Standard 36.97% minus AOW premium ~17.60% = ~19.37%"
+      2025-01-01:
+        value: 0.1902
+        metadata:
+          notes: "Standard 35.82% minus AOW premium ~16.80% = ~19.02%"
+  - threshold:
+      2023-01-01:
+        value: 73031
+      2024-01-01:
+        value: 75518
+      2025-01-01:
+        value: 38441
+    rate:
+      2023-01-01:
+        value: 0.495
+      2024-01-01:
+        value: 0.495
+      2025-01-01:
+        value: 0.3748
+  - threshold:
+      2025-01-01:
+        value: 76817
+    rate:
+      2025-01-01:
+        value: 0.495
+
