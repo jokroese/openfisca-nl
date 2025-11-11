@@ -1,5 +1,7 @@
 """This file defines a reform to add a dynamic variable, based on input data.
 
+Example reform for demonstration purposes – not part of Dutch legislation.
+
 A reform is a set of modifications to be applied to a reference tax and benefit
 system to carry out experiments.
 
@@ -47,7 +49,7 @@ class add_dynamic_variable(Reform):
             default_value=True,
             definition_period=MONTH,
             label="The person goes to school (only relevant for children)",
-            reference="https://law.gov.example/goes_to_school",
+            reference="https://www.rijksoverheid.nl/onderwerpen/leerplicht",
         )
 
         self.add_variable(NewVariable)

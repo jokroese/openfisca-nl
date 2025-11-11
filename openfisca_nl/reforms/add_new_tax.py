@@ -1,5 +1,7 @@
 """This file defines a reform.
 
+Example reform for demonstration purposes – not part of Dutch legislation.
+
 A reform is a set of modifications to be applied to a reference tax and benefit
 system to carry out experiments.
 
@@ -21,15 +23,15 @@ class has_car(Variable):
     default_value = True
     definition_period = MONTH
     label = "The person has a car"
-    reference = "https://law.gov.example/new_tax"  # Always use the most official source
+    reference = "https://www.belastingdienst.nl/wps/wcm/connect/nl/auto-en-vervoer/auto-en-vervoer"
 
 
 class new_tax(Variable):
     value_type = float
     entity = Person
     definition_period = MONTH
-    label = "New tax"
-    reference = "https://law.gov.example/new_tax"  # Always use the most official source
+    label = "New tax (example reform)"
+    reference = "https://www.belastingdienst.nl/wps/wcm/connect/nl/belastingdienst/belastingdienst"
 
     def formula(person, period, _parameters):
         """New tax reform.

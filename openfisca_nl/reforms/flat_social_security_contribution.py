@@ -1,5 +1,7 @@
 """This file defines a reform.
 
+Example reform for demonstration purposes – not part of Dutch legislation.
+
 A reform is a set of modifications to be applied to a reference tax and benefit
 system to carry out experiments.
 
