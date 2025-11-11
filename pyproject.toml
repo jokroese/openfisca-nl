@@ -5,21 +5,20 @@ requires = [ "setuptools>=61" ]
 [project]
 name = "openfisca-nl"
 version = "0.0.1"
-description = "OpenFisca Rules as Code model for Nl."
+description = "OpenFisca Rules-as-Code model for the Netherlands."
 readme = "README.md"
-keywords = [ "benefit", "microsimulation", "rac", "rules-as-code", "tax" ]
+keywords = [ "benefit", "microsimulation", "rac", "rules-as-code", "tax", "netherlands", "dutch" ]
 maintainers = [  ]
 authors = [  ]
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 classifiers = [
-    "Development Status :: 1 - Planning",
+    "Development Status :: 3 - Alpha",
     "License :: OSI Approved :: GNU Affero General Public License v3",
     "Operating System :: POSIX",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Topic :: Scientific/Engineering :: Information Analysis",
 ]
 
@@ -32,14 +31,14 @@ optional-dependencies.dev = [
     "ruff-lsp>=0.0.57,<1",
     "yamllint>=1.35.1",
 ]
-urls.Changelog = "git://github.com/jokroese/openfisca-nl.git/blob/main/CHANGELOG.md"
+urls.Changelog = "https://github.com/jokroese/openfisca-nl/blob/main/CHANGELOG.md"
 urls.Documentation = "https://openfisca.org/doc"
-urls.Homepage = "git://github.com/jokroese/openfisca-nl.git"
-urls.Issues = "git://github.com/jokroese/openfisca-nl.git/issues"
-urls.Repository = "git://github.com/jokroese/openfisca-nl.git"
+urls.Homepage = "https://github.com/jokroese/openfisca-nl"
+urls.Issues = "https://github.com/jokroese/openfisca-nl/issues"
+urls.Repository = "https://github.com/jokroese/openfisca-nl"
 
 [tool.ruff]
-target-version = "py39"
+target-version = "py311"
 format.docstring-code-line-length = 72
 format.docstring-code-format = true
 lint.select = [ "ALL" ]
@@ -74,7 +73,7 @@ known_typing = [ "*collections.abc*", "*typing*", "*typing_extensions*" ]
 known_types = [ "*types*" ]
 multi_line_output = 3
 profile = "black"
-py_version = 39
+py_version = 311
 sections = [
     "FUTURE",
     "TYPING",
@@ -98,7 +97,7 @@ python_files = "**/*.py"
 
 [tool.tox]
 requires = [ "tox>=4.20" ]
-env_list = [ "py39", "py310", "py311", "lint", "dist" ]
+env_list = [ "py311", "py312", "lint", "dist" ]
 
 [tool.tox.env_run_base]
 allowlist_externals = [ "make" ]
@@ -115,7 +114,7 @@ commands_pre = [
 
 [tool.tox.env.lint]
 allowlist_externals = [ "make" ]
-basepython = [ "py39" ]
+basepython = [ "py311" ]
 commands = [ [ "make", "lint" ] ]
 commands_pre = [
     [
@@ -128,7 +127,7 @@ commands_pre = [
 ]
 
 [tool.tox.env.dist]
-basepython = [ "py39" ]
+basepython = [ "py311" ]
 commands = [ [ "twine", "check", "dist/*" ] ]
 commands_pre = [ [ "python", "-m", "build" ] ]
 deps = [ "build", "twine" ]

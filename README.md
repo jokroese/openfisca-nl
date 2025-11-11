@@ -1,28 +1,41 @@
-# OpenFisca Nl
+# OpenFisca-NL: Dutch Rules-as-Code Model
 
+OpenFisca-NL is a rules-as-code implementation of the Dutch tax and benefit system, based on official legislation published by the Belastingdienst (Dutch Tax Authority) and the Rijksoverheid (Dutch Government).
 
-The country whose law is modelled here has a very simple tax and benefit
-system.
+## Scope
 
-- It has a flat rate tax whose rates increase every year.
-- On the first of December, 2015, it introduced a basic income for all its
-  citizens of age who have no income.
-- On the first of December, 2016, it removed the income condition, providing
-  all its adult citizens with a basic income.
+This package currently models the following components of the Dutch tax system:
 
-These elements are described in different folders. All the modelling happens
-within the `openfisca_nl` folder.
+- **Box 1 Income Tax (Inkomstenbelasting)**
+  - Progressive tax brackets for wages and self-employment income
+  - Tax brackets for 2023, 2024, and 2025
 
-- The rates are in the `parameters` folder.
-- The formulas are in the `variables` folder.
-- This country package comes also with *reforms* in the `reforms` folder. This
-  is optional: your country may exist without defining any reform.
-  - In this country, there is
-    [a reform project](./openfisca_nl/reforms/modify_social_security_taxation.py)
-    aiming to modify the social security taxation, deleting the first bracket,
-    raising the intermediary ones and adding a new bracket with a higher tax
-    rate of `40 %` for people earning more than `40000`. This reform project
-    would apply starting from `2017-01-01`.
+- **Tax Credits (Heffingskortingen)**
+  - General tax credit (algemene heffingskorting)
+  - Labor tax credit (arbeidskorting)
+
+- **Self-Employment (Zelfstandigen)**
+  - Self-employed deduction (zelfstandigenaftrek) - only applied if `urencriterium_voldaan` is true for the year
+  - SME profit exemption (mkb-winstvrijstelling)
+  - Hours criterion (urencriterium) requirement
+
+- **Social Security Contributions**
+  - Simplified model of AOW, WLZ, and other contributions
+
+- **Property Tax (OZB)**
+  - Simplified municipal property tax model
+
+## Disclaimer
+
+This package implements official Dutch rules in code form, based on publicly available legislation. It is **not affiliated with the Dutch government** and should **not be relied upon for personal tax filing**. Always consult official sources or a qualified tax advisor for tax advice.
+
+## How the Model Works
+
+All modeling happens within the `openfisca_nl` folder:
+
+- The **parameters** folder contains tax rates, brackets, and thresholds from official sources
+- The **variables** folder contains the formulas that calculate taxes and benefits
+- The **reforms** folder (optional) contains experimental policy modifications
 
 The files that are outside from the `openfisca_nl` folder are
 used to set up the development environment.
@@ -65,7 +78,7 @@ files, and uploading them to PyPI.
 ## Install Instructions for Users and Contributors
 
 This package requires
-[Python 3.11](https://www.python.org/downloads/release/python-390/). More
+[Python 3.11](https://www.python.org/downloads/release/python-3110/) or higher. More
 recent versions should work, but are not tested.
 
 All platforms that can execute Python are supported, which includes GNU/Linux,
@@ -171,8 +184,8 @@ python --version  # should print "Python 3.11.xx".
 Clone this Country Package on your machine:
 
 ```sh
-git clone git://github.com/jokroese/openfisca-nl.git.git
-cd openfisca-nl.git
+git clone https://github.com/jokroese/openfisca-nl.git
+cd openfisca-nl
 pip install --upgrade pip build twine
 pip install --editable .[dev] --upgrade
 ```
