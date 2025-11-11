@@ -84,33 +84,31 @@ recent versions should work, but are not tested.
 All platforms that can execute Python are supported, which includes GNU/Linux,
 macOS and Microsoft Windows.
 
-### Setting-up a Virtual Environment with venv
+### Setting up with uv
 
-In order to limit dependencies conflicts, we recommend using a
-[virtual environment](https://www.python.org/dev/peps/pep-0405/) with
-[venv](https://docs.python.org/3/library/venv.html).
+This project uses [uv](https://docs.astral.sh/uv/), a fast Python package installer and resolver. 
 
-- A [venv](https://docs.python.org/3/library/venv.html) is a project specific
-  environment created to suit the needs of the project you are working on.
-
-To create a virtual environment, launch a terminal on your computer, `cd` into
-your directory and follow these instructions:
+First, install `uv`:
 
 ```sh
-python3 -m venv .venv # create a new virtual environment in the “.venv” folder, which will contain all dependencies
-source .venv/bin/activate # activate the venv
+# On macOS and Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# On Windows
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+# Or with pip
+pip install uv
 ```
 
-You can now operate in the venv you just created.
-
-You can deactivate that venv at any time with `deactivate`.
+`uv` automatically manages virtual environments and Python versions for you, so you don't need to manually create or activate a venv.
 
 :tada: You are now ready to install this OpenFisca Country Package!
 
 Two install procedures are available. Pick procedure A or B below depending on
 how you plan to use this Country Package.
 
-### A. Minimal Installation (Pip Install)
+### A. Minimal Installation (uv pip install)
 
 Follow this installation if you wish to:
 
@@ -122,26 +120,22 @@ Follow this installation if you wish to:
 For more advanced uses, head to the
 [Advanced Installation](#advanced-installation-git-clone).
 
-#### Install this Country Package with Pip Install
+#### Install this Country Package with uv
 
-Inside your venv, check the prerequisites:
-
-```sh
-python --version  # should print "Python 3.11.xx".
-```
+Check the prerequisites:
 
 ```sh
-pip --version  # should print at least 9.0.
-# if not, run "pip install --upgrade pip"
+python --version  # should print "Python 3.11.xx" or higher
+uv --version      # should print the uv version
 ```
 
 Install the Country Package:
 
 ```sh
-pip install openfisca-nl
+uv pip install openfisca-nl
 ```
 
-:warning: Please beware that installing the Country Package with `pip` is
+:warning: Please beware that installing the Country Package is
 dependent on its maintainers publishing said package.
 
 :tada: This OpenFisca Country Package is now installed and ready!
@@ -170,15 +164,16 @@ Follow this tutorial if you wish to:
 
 #### Clone this Country Package with Git
 
-First, make sure [Git](https://www.git-scm.com/) is installed on your machine.
+First, make sure [Git](https://www.git-scm.com/) and [uv](https://docs.astral.sh/uv/) are installed on your machine.
 
 Set your working directory to the location where you want this OpenFisca
 Country Package cloned.
 
-Inside your venv, check the prerequisites:
+Check the prerequisites:
 
 ```sh
-python --version  # should print "Python 3.11.xx".
+python --version  # should print "Python 3.11.xx" or higher
+uv --version      # should print the uv version
 ```
 
 Clone this Country Package on your machine:
@@ -186,8 +181,13 @@ Clone this Country Package on your machine:
 ```sh
 git clone https://github.com/jokroese/openfisca-nl.git
 cd openfisca-nl
-pip install --upgrade pip build twine
-pip install --editable .[dev] --upgrade
+make install
+```
+
+Or manually:
+
+```sh
+uv pip install --editable .[dev] --upgrade
 ```
 
 You can make sure that everything is working by running the provided tests with
@@ -222,13 +222,17 @@ contributions as Github Actions does.
 
 #### Set up an isolated environment
 
-First, make sur [Tox](https://tox.wiki/en/4.23.0/) is installed on your
+First, make sure [Tox](https://tox.wiki/en/4.23.0/) is installed on your
 machine.
 
-We recommend using [pipx](<(https://pypi.org/project/pipx/)>) to install `tox`,
-to avoid mixing isolated-testing dependencies testing with `virtualenv`.
+We recommend using [uv tool](https://docs.astral.sh/uv/guides/tools/) or [pipx](https://pypi.org/project/pipx/) to install `tox`,
+to avoid mixing isolated-testing dependencies with your development environment.
 
 ```sh
+# With uv (recommended)
+uv tool install tox
+
+# Or with pipx
 pipx install tox
 ```
 
@@ -262,12 +266,12 @@ OpenFisca Web API with your Country Package.
 To serve the Openfisca Web API locally, run:
 
 ```sh
-openfisca serve --port 5000 --country-package openfisca_nl
+uv run openfisca serve --port 5000 --country-package openfisca_nl
 ```
 
 Or use the quick-start Make command:
 
-```
+```sh
 make serve-local
 ```
 

@@ -1,6 +1,18 @@
 [build-system]
-build-backend = "setuptools.build_meta"
-requires = [ "setuptools>=61" ]
+build-backend = "hatchling.build"
+requires = [ "hatchling" ]
+
+[tool.hatchling.build.targets.wheel]
+packages = ["openfisca_nl"]
+
+[tool.hatchling.build.targets.sdist]
+include = [
+    "openfisca_nl/",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "CONTRIBUTING.md",
+]
 
 [project]
 name = "openfisca-nl"
@@ -96,14 +108,16 @@ testpaths = [ "openfisca_nl/tests" ]
 python_files = "**/*.py"
 
 [tool.tox]
-requires = [ "tox>=4.20" ]
+requires = [ "tox>=4.20", "tox-uv>=1.0" ]
 env_list = [ "py311", "py312", "lint", "dist" ]
 
 [tool.tox.env_run_base]
 allowlist_externals = [ "make" ]
 commands = [ [ "make", "test" ] ]
+runner = "uv-venv-lock-runner"
 commands_pre = [
     [
+        "uv",
         "pip",
         "install",
         "--find-links",
@@ -116,8 +130,10 @@ commands_pre = [
 allowlist_externals = [ "make" ]
 basepython = [ "py311" ]
 commands = [ [ "make", "lint" ] ]
+runner = "uv-venv-lock-runner"
 commands_pre = [
     [
+        "uv",
         "pip",
         "install",
         "--find-links",
@@ -129,5 +145,6 @@ commands_pre = [
 [tool.tox.env.dist]
 basepython = [ "py311" ]
 commands = [ [ "twine", "check", "dist/*" ] ]
-commands_pre = [ [ "python", "-m", "build" ] ]
+runner = "uv-venv-lock-runner"
+commands_pre = [ [ "uv", "build" ] ]
 deps = [ "build", "twine" ]
