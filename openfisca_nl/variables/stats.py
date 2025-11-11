@@ -13,32 +13,12 @@ from openfisca_core.variables import Variable
 from openfisca_nl.entities import Household
 
 
-class total_benefits(Variable):
-    value_type = float
-    entity = Household
-    definition_period = MONTH
-    label = "Sum of the benefits perceived by a household"
-    reference = "https://stats.gov.example/benefits"
-
-    def formula(household, period, _parameters):
-        """Total benefits."""
-        basic_income_i = household.members(
-            "basic_income", period
-        )  # Calculates the value of basic_income for each member of the household
-
-        return +household.sum(
-            basic_income_i
-        ) + household(  # Sum the household members basic incomes
-            "housing_allowance", period
-        )
-
-
 class total_taxes(Variable):
     value_type = float
     entity = Household
     definition_period = MONTH
     label = "Sum of the taxes paid by a household"
-    reference = "https://stats.gov.example/taxes"
+    reference = "https://www.cbs.nl/nl-nl/cijfers/detail/80068NED"
 
     def formula(household, period, _parameters):
         """Total taxes."""
