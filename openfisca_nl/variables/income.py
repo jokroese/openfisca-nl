@@ -24,7 +24,9 @@ class salary(Variable):
     # will spread the yearly amount over the months contained in the year.
     set_input = set_input_divide_by_period
     label = "Salary (gross monthly wage income)"
-    reference = "https://www.belastingdienst.nl/wps/wcm/connect/nl/werk-en-inkomen/content/loon"
+    reference = (
+        "https://www.belastingdienst.nl/wps/wcm/connect/nl/werk-en-inkomen/content/loon"
+    )
 
 
 # This variable is a pure input: it doesn't have a formula
@@ -50,17 +52,19 @@ class disposable_income(Variable):
 
     def formula(household, period, _parameters):
         """Disposable income.
-        
+
         Income after taxes and social security contributions.
         Includes salary, self-employment income, capital returns, and pension.
-        
+
         Note: This is a modeling definition, not CBS's exact definition.
         This matches what the YAML tests assert.
         """
         # Household's job returns is the sum of all its members' salary.
         salary = household.sum(household.members("salary", period))
         # Self-employment taxable income
-        se_income = household.sum(household.members("self_employment_taxable_income", period))
+        se_income = household.sum(
+            household.members("self_employment_taxable_income", period)
+        )
         # Household's capital returns is the sum of all its members' capital returns.
         capital_returns = household.sum(household.members("capital_returns", period))
         # Pension income

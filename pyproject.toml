@@ -39,6 +39,7 @@ dependencies = [
 ]
 optional-dependencies.dev = [
     "isort>=5.13.2,<6",
+    "poethepoet>=0.24.0",
     "ruff>=0.6.9,<1",
     "ruff-lsp>=0.0.57,<1",
     "yamllint>=1.35.1",
@@ -48,6 +49,12 @@ urls.Documentation = "https://openfisca.org/doc"
 urls.Homepage = "https://github.com/jokroese/openfisca-nl"
 urls.Issues = "https://github.com/jokroese/openfisca-nl/issues"
 urls.Repository = "https://github.com/jokroese/openfisca-nl"
+
+[tool.poe.tasks]
+test = "openfisca test --country-package openfisca_nl openfisca_nl/tests"
+serve = "openfisca serve --country-package openfisca_nl"
+lint.shell = "isort --check . && ruff check . && yamllint ."
+format.shell = "ruff format . && isort ."
 
 [tool.ruff]
 target-version = "py311"
@@ -112,8 +119,7 @@ requires = [ "tox>=4.20", "tox-uv>=1.0" ]
 env_list = [ "py311", "py312", "lint", "dist" ]
 
 [tool.tox.env_run_base]
-allowlist_externals = [ "make" ]
-commands = [ [ "make", "test" ] ]
+commands = [ [ "openfisca", "test", "--country-package", "openfisca_nl", "openfisca_nl/tests" ] ]
 runner = "uv-venv-lock-runner"
 commands_pre = [
     [
@@ -127,9 +133,12 @@ commands_pre = [
 ]
 
 [tool.tox.env.lint]
-allowlist_externals = [ "make" ]
 basepython = [ "py311" ]
-commands = [ [ "make", "lint" ] ]
+commands = [
+    [ "isort", "--check", "." ],
+    [ "ruff", "check", "." ],
+    [ "yamllint", "." ],
+]
 runner = "uv-venv-lock-runner"
 commands_pre = [
     [

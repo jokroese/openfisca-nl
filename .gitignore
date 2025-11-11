@@ -5,13 +5,13 @@
 build
 dist
 .venv
+uv.lock
 
 # Editors
 
 .idea
 .project
 .pydevproject
-.python-version
 .settings
 .spyderproject
 .vscode

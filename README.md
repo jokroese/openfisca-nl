@@ -181,17 +181,14 @@ Clone this Country Package on your machine:
 ```sh
 git clone https://github.com/jokroese/openfisca-nl.git
 cd openfisca-nl
-make install
+uv sync --all-extras
 ```
 
-Or manually:
+You can make sure that everything is working by running the provided tests:
 
 ```sh
-uv pip install --editable .[dev] --upgrade
+uv run poe test
 ```
-
-You can make sure that everything is working by running the provided tests with
-`make test`.
 
 > [Learn more about tests](https://openfisca.org/doc/coding-the-legislation/writing_yaml_tests.html)
 
@@ -204,6 +201,27 @@ You can make sure that everything is working by running the provided tests with
   section to know how to write legislation.
 - To contribute to the code, read our
   [Contribution Guidebook](https://openfisca.org/doc/contribute/index.html).
+
+### Development Commands
+
+The project uses [Poe the Poet](https://github.com/nat-n/poethepoet) for task running. Use these convenient commands:
+
+```sh
+# Run tests
+uv run poe test
+
+# Format code
+uv run poe format
+
+# Lint code
+uv run poe lint
+
+# Build package
+uv build
+
+# Serve API locally
+uv run poe serve
+```
 
 ### C. Contributing
 
@@ -266,13 +284,13 @@ OpenFisca Web API with your Country Package.
 To serve the Openfisca Web API locally, run:
 
 ```sh
-uv run openfisca serve --port 5000 --country-package openfisca_nl
+uv run poe serve --port 5000
 ```
 
-Or use the quick-start Make command:
+Or use the full command:
 
 ```sh
-make serve-local
+uv run openfisca serve --port 5000 --country-package openfisca_nl
 ```
 
 To read more about the `openfisca serve` command, check out its

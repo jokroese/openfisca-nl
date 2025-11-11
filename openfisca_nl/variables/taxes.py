@@ -25,7 +25,7 @@ class arbeidsinkomen(Variable):
 
     def formula(person, period, _parameters):
         """Labor income for Dutch tax purposes.
-        
+
         Includes wages, self-employment taxable income, and certain benefits.
         Used to calculate arbeidskorting (labor tax credit).
         """
@@ -33,7 +33,7 @@ class arbeidsinkomen(Variable):
         salary = person("salary", period)
         # Self-employment taxable income
         se_income = person("self_employment_taxable_income", period)
-        
+
         # Labor income = salary + self-employment income
         return salary + se_income
 
@@ -52,19 +52,19 @@ class algemene_heffingskorting(Variable):
         Calculated on an annual basis, then divided by 12 for monthly amount.
         """
         params = parameters(period).taxes.tax_credits
-        
+
         # Annualize monthly taxable income
         monthly_taxable_income = person("taxable_income", period)
         annual_taxable_income = monthly_taxable_income * 12
-        
+
         max_credit = params.algemene_heffingskorting_max
         threshold = params.algemene_heffingskorting_income_threshold
         phase_out_rate = params.algemene_heffingskorting_phase_out_rate
-        
+
         # Phase out above threshold
         excess_income = max_(annual_taxable_income - threshold, 0)
         reduction = excess_income * phase_out_rate
-        
+
         # Annual credit, clamped to 0, then divided by 12 for monthly
         annual_credit = max_(max_credit - reduction, 0)
         return annual_credit / 12
@@ -84,26 +84,26 @@ class arbeidskorting(Variable):
         Calculated on an annual basis, then divided by 12 for monthly amount.
         """
         params = parameters(period).taxes.tax_credits
-        
+
         # Annualize monthly labor income (arbeidsinkomen)
         monthly_arbeidsinkomen = person("arbeidsinkomen", period)
         annual_labor_income = monthly_arbeidsinkomen * 12
-        
+
         max_credit = params.arbeidskorting_max
         max_income = params.arbeidskorting_max_income
         buildup_rate = params.arbeidskorting_buildup_rate
         phase_out_rate = params.arbeidskorting_phase_out_rate
-        
+
         # Build up linearly to max_income
         buildup_credit = annual_labor_income * buildup_rate
-        
+
         # Phase out above max_income
         excess_income = max_(annual_labor_income - max_income, 0)
         phase_out_reduction = excess_income * phase_out_rate
-        
+
         # Credit is min of buildup and max, minus phase-out, clamped to 0
         annual_credit = max_(0, min_(buildup_credit, max_credit) - phase_out_reduction)
-        
+
         # Monthly credit (annual credit divided by 12)
         return annual_credit / 12
 
@@ -144,32 +144,32 @@ class income_tax(Variable):
 
         Tax is calculated on taxable income using progressive brackets,
         then tax credits are subtracted.
-        
+
         People at or above AOW age use a different tax scale because they
         do not pay AOW premiums, resulting in a lower effective rate in
         the first bracket.
         """
         taxable_income = person("taxable_income", period)
-        
+
         # Get person's age and AOW age threshold
         age = person("age", period)
         aow_age = parameters(period).general.age_of_retirement
-        
+
         # Select appropriate tax scale based on age
         is_aow_age = age >= aow_age
         scale = parameters(period).taxes.income_tax_brackets_aow
         scale_regular = parameters(period).taxes.income_tax_brackets
-        
+
         # Calculate gross tax using age-appropriate scale
         # Use where() to handle vectorized age comparison
         gross_tax_aow = scale.calc(taxable_income)
         gross_tax_regular = scale_regular.calc(taxable_income)
         gross_tax = where(is_aow_age, gross_tax_aow, gross_tax_regular)
-        
+
         # Subtract tax credits
         algemene_heffingskorting = person("algemene_heffingskorting", period)
         arbeidskorting = person("arbeidskorting", period)
-        
+
         # Tax cannot be negative
         return max_(gross_tax - algemene_heffingskorting - arbeidskorting, 0)
 
